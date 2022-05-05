@@ -4,28 +4,25 @@ import java.util.Arrays;
  * Array based storage for Resumes
  */
 public class ArrayStorage {
-    Resume[] storage = new Resume[10000];
-    int SIZE = 0;
+    static final int STORAGE_LIMIT = 10000;
+    Resume[] storage = new Resume[STORAGE_LIMIT];
+    int size = 0;
 
     void clear() {
-        if (SIZE == 0) {
-            System.out.println("Array is clear");
-        } else {
-            Arrays.fill(storage, 0, SIZE, null);
-            SIZE = 0;
-        }
+        Arrays.fill(storage, 0, size, null);
+        size = 0;
     }
 
     void save(Resume r) {
-        if (SIZE < 10000) {
-            storage[SIZE] = r;
-            SIZE++;
+        if (size < STORAGE_LIMIT) {
+            storage[size] = r;
+            size++;
         }
     }
 
     Resume get(String uuid) {
-        for (int i = 0; i < SIZE; i++) {
-            if (storage[i].uuid == uuid) {
+        for (int i = 0; i < size; i++) {
+            if (storage[i].uuid.equals(uuid)) {
                 return storage[i];
             }
         }
@@ -33,11 +30,11 @@ public class ArrayStorage {
     }
 
     void delete(String uuid) {
-        for (int i = 0; i < SIZE; i++) {
-            if (storage[i].uuid == uuid) {
-                storage[i] = storage[SIZE - 1];
-                storage[SIZE - 1] = null;
-                SIZE--;
+        for (int i = 0; i < size; i++) {
+            if (storage[i].uuid.equals(uuid)) {
+                size--;
+                storage[i] = storage[size];
+                storage[size] = null;
             }
         }
     }
@@ -46,10 +43,10 @@ public class ArrayStorage {
      * @return array, contains only Resumes in storage (without null)
      */
     Resume[] getAll() {
-        return Arrays.copyOfRange(storage, 0, SIZE);
+        return Arrays.copyOfRange(storage, 0, size);
     }
 
     int size() {
-        return SIZE;
+        return size;
     }
 }
