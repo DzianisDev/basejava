@@ -1,10 +1,8 @@
 package com.urise.webapp.storage;
 
-import static org.junit.Assert.*;
+public class SortedStorageTest extends AbstractStorageTest {
 
-public class SortedArrayStorageTest extends  AbstractArrayStorageTest{
-
-   public SortedArrayStorageTest() {
+   public SortedStorageTest() {
         super(new SortedArrayStorage());
     }
 }
