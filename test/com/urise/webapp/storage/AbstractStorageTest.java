@@ -66,10 +66,10 @@ public abstract class AbstractStorageTest {
 
     @Test
     public void getAll() {
-        assertEquals(3, storage.size());
-        assertEquals(RESUME_1, storage.get(RESUME_1.getUuid()));
-        assertEquals(RESUME_2, storage.get(RESUME_2.getUuid()));
-        assertEquals(RESUME_3, storage.get(RESUME_3.getUuid()));
+        assertSize(3);
+        assertGet(RESUME_1);
+        assertGet(RESUME_2);
+        assertGet(RESUME_3);
     }
 
     @Test
