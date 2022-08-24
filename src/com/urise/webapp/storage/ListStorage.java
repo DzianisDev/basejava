@@ -9,22 +9,22 @@ public class ListStorage extends AbstractStorage {
     private List<Resume> list = new ArrayList<>();
 
     @Override
-    protected Resume doGet(Object searchKey) {
+    protected Resume getResume(Object searchKey) {
         return list.get((Integer) searchKey);
     }
 
     @Override
-    protected void doDelete(Object searchKey) {
+    protected void deleteResume(Object searchKey) {
         list.remove(((Integer)searchKey).intValue());
     }
 
     @Override
-    protected void doSave(Resume r, Object searchKey) {
+    protected void saveResume(Resume r, Object searchKey) {
         list.add(r);
     }
 
     @Override
-    protected void doUpdate(Resume r, Object searchKey) {
+    protected void updateResume(Resume r, Object searchKey) {
         list.set((Integer) searchKey, r);
     }
 

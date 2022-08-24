@@ -8,22 +8,22 @@ public class MapStorage extends AbstractStorage {
     private HashMap<String, Resume> hashMap = new HashMap<>();
 
     @Override
-    protected Resume doGet(Object searchKey) {
+    protected Resume getResume(Object searchKey) {
         return hashMap.get((String) searchKey);
     }
 
     @Override
-    protected void doDelete(Object searchKey) {
+    protected void deleteResume(Object searchKey) {
         hashMap.remove((String) searchKey);
     }
 
     @Override
-    protected void doSave(Resume r, Object key) {
+    protected void saveResume(Resume r, Object key) {
         hashMap.put((String) key, r);
     }
 
     @Override
-    protected void doUpdate(Resume r, Object searchKey) {
+    protected void updateResume(Resume r, Object searchKey) {
         hashMap.put((String) searchKey, r);
     }
 
