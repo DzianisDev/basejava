@@ -2,7 +2,6 @@ package com.urise.webapp.storage;
 
 import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.Resume;
-import junit.framework.TestCase;
 import org.junit.Test;
 
 import static org.junit.Assert.fail;
