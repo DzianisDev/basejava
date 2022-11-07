@@ -1,13 +1,12 @@
 package com.urise.webapp.storage;
 
-import com.urise.webapp.exception.ExistStorageException;
-import com.urise.webapp.exception.NotExistStorageException;
 import com.urise.webapp.exception.StorageException;
 import com.urise.webapp.model.Resume;
 
 import java.util.Arrays;
+import java.util.List;
 
-public abstract class AbstractArrayStorage extends AbstractStorage {
+public abstract class AbstractArrayStorage extends AbstractStorage<Integer> {
     protected static final int STORAGE_LIMIT = 10000;
     protected final Resume[] storage = new Resume[STORAGE_LIMIT];
     protected int size = 0;
@@ -22,39 +21,40 @@ public abstract class AbstractArrayStorage extends AbstractStorage {
     }
 
     @Override
-    protected boolean isExist(Object index) {
-        return (Integer) index >= 0;
+    protected boolean isExist(Integer index) {
+        return index >= 0;
     }
 
     @Override
-    protected void saveResume(Resume r, Object index) {
+    protected void saveResume(Resume r, Integer index) {
         if (size == STORAGE_LIMIT) {
             throw new StorageException("Storage overflow", r.getUuid());
         } else {
-            insertResume((Integer) index, r);
+            insertResume(index, r);
             size++;
         }
     }
 
     @Override
-    public void deleteResume(Object index) {
-            size--;
-            removeResume((Integer)index);
-            storage[size] = null;
+    public void deleteResume(Integer index) {
+        size--;
+        removeResume(index);
+        storage[size] = null;
     }
 
     @Override
-    protected void updateResume(Resume r, Object index) {
-        storage[(Integer) index] = r;
-    }
-
-    public Resume[] getAll() {
-        return Arrays.copyOfRange(storage, 0, size);
+    protected void updateResume(Resume r, Integer index) {
+        storage[index] = r;
     }
 
     @Override
-    public Resume getResume(Object index) {
-            return storage[(Integer)index];
+    public List<Resume> copyAll() {
+        return Arrays.asList(Arrays.copyOfRange(storage, 0, size));
+    }
+
+    @Override
+    public Resume getResume(Integer index) {
+        return storage[index];
     }
 
     protected abstract Integer getSearchKey(String uuid);
