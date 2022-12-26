@@ -4,11 +4,12 @@ import com.urise.webapp.exception.ExistStorageException;
 import com.urise.webapp.exception.NotExistStorageException;
 import com.urise.webapp.model.Resume;
 
-
 import java.util.Collections;
 import java.util.List;
+import java.util.logging.Logger;
 
 public abstract class AbstractStorage<SK> implements Storage {
+    protected final Logger LOG = Logger.getLogger(getClass().getName());
 
     protected abstract Resume getResume(SK searchKey);
 
@@ -21,14 +22,17 @@ public abstract class AbstractStorage<SK> implements Storage {
     protected abstract boolean isExist(SK searchKey);
 
     protected abstract SK getSearchKey(String uuid);
+
     protected abstract List<Resume> copyAll();
 
     public void update(Resume r) {
+        LOG.info("Resume: "+ r + " updated");
         SK searchKey = getExistedSearchKey(r.getUuid());
         updateResume(r, searchKey);
     }
 
     public void save(Resume r) {
+        LOG.info("Resume: "+ r + " Saved");
         SK searchKey = getNotExistedSearchKey(r.getUuid());
         saveResume(r, searchKey);
     }
@@ -37,7 +41,7 @@ public abstract class AbstractStorage<SK> implements Storage {
     public List<Resume> getAllSorted() {
         List<Resume> list = copyAll();
         Collections.sort(list);
-        return  list;
+        return list;
     }
 
     public void delete(String uuid) {
